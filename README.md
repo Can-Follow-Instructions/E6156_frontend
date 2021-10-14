@@ -1,3 +1,3 @@
 # E6156_frontend
-npm install
-npm start
+  npm install\n
+  npm start
