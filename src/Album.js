@@ -31,7 +31,7 @@ function Copyright() {
     );
 }
 
-const cards = [1];
+const cards = [1,2,3,4];
 
 const theme = createTheme();
 
@@ -55,9 +55,12 @@ export class Album extends React.Component {
             .then(response => response.json())
             .then(response => {
                 console.log(response);
-                this.setState({content: response.map(info => {return new Map([['email',info.email], ['firstName',info.firstName], ['lastName',info.lastName]])})})
-                console.log(this.state);
+                this.setState({content: response.map(info => {
+                        if (info.address)
+                            return new Map([['email',info.email], ['firstName',info.firstName], ['lastName',info.lastName],['address',info.address.street]]);
+                        return new Map([['email',info.email], ['firstName',info.firstName], ['lastName',info.lastName]])})});
             });
+        console.log(this.state);
     }
 
     componentDidMount() {
@@ -133,7 +136,7 @@ export class Album extends React.Component {
                                             <Typography>
                                                     {
                                                         this.state.content.map((value,key)=>{
-                                                            return<li  key={key}>{'User Name is ' + value.get('firstName') + ' ' + value.get('lastName') + ' , Email is ' + value.get('email')}</li>
+                                                            return<li  key={key}>{'User Name is ' + value.get('firstName') + ' ' + value.get('lastName') + ' , Email is ' + value.get('email') + ' , address is '+value.get('address')}</li>
                                                         })
                                                     }
                                             </Typography>

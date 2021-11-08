@@ -9,16 +9,20 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@emotion/react": "latest",
-    "@emotion/styled": "latest",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^5.0.0-beta.5",
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.0.3",
     "@mui/material": "^5.0.3",
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
+    "http-proxy-middleware": "^2.0.1",
     "material-ui-icons": "^1.0.0-beta.36",
     "react": "^17.0.2",
     "react-dom": "latest",
-    "react-scripts": "latest"
+    "react-scripts": "latest",
+    "typescript": "^4.4.4"
   },
   "browserslist": {
     "production": [

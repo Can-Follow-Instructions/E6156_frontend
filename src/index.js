@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import App from './App';
 import theme from './theme';
 import {Album} from "./Album";
+import {GetHomePost} from "./post/getArticle";
 
 ReactDOM.render(
   // <ThemeProvider theme={theme}>
@@ -12,6 +13,7 @@ ReactDOM.render(
   //   <CssBaseline />
   //   <App />
   // </ThemeProvider>,
-   <Album />,
+  // <Album />,
+    <GetHomePost />,
   document.querySelector('#root'),
 );
