@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {commGet} from '../common/commFunc'
+import {commGet, brieviateString, shapeTime} from '../common/commFunc'
 import config from '../common/config'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 
 
 const ARTICLEURL = config.api.posts
+const MAXCONTENTLENGTH = 50
 export {GetHomePost}
 
 interface Article {
@@ -21,7 +22,7 @@ interface Article {
     id: number
 }
 
-function GetHomePost(props: any) {
+function GetHomePost() {
     let page = 1
     let size = 100
 
@@ -62,10 +63,10 @@ function GetHomePost(props: any) {
                                         {item.title}
                                     </Typography>
                                     <Typography sx={{fontSize: 15}} variant="h5" component="div">
-                                        {item.content}
+                                        {brieviateString(item.content, MAXCONTENTLENGTH)}
                                     </Typography>
-                                    <Typography sx={{mb: 1.5}} color="text.secondary">
-                                        {item.createTime}
+                                    <Typography sx={{mb: 1.5, fontSize:12}} color="text.secondary">
+                                        {"posted by " + shapeTime(item.createTime)}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
