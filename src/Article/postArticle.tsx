@@ -39,7 +39,7 @@ function ArticleForm() {
     // @ts-ignore
     const handleSubmit = () => {
         console.log(`ArticleForm handleSubmit ${formValues.title}${formValues.content}${formValues.createTime}${formValues.user}`);
-        commPost("ArticleForm handleSubmit", config.api.posts.baseURL, formValues);
+        commPost("ArticleForm handleSubmit", config.api.articles.baseURL, formValues);
     }
 
 

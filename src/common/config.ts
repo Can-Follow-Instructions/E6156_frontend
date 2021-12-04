@@ -4,8 +4,12 @@ const config = {
         code: {
             success    : 200,   // 200-success
         },
-        posts: {
+        articles: {
             baseURL: "/posts",
+        },
+        discussions:{
+            baseURL: "/discussions",
+            getByArticlesURL:"/discussions/post"
         }
 
     }
