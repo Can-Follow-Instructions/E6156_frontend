@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     import Dialog from '@mui/material/Dialog';
+import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -18,16 +18,29 @@ import Button from "@material-ui/core/Button";
 import {User, emptyUser} from "../User/getUser"
 import {commPost} from "../common/commFunc"
 import config from "../common/config"
+import {Article} from "../Article/getArticle"
+import IconButton from "@mui/material/IconButton";
+import ReplySharpIcon from '@mui/icons-material/ReplySharp';
 
-const defaultArticle = {
-    title: "",
-    content: "",
-    createTime: "",
-    user: emptyUser
-};
+interface postDiscussion {
+    parentId: number, // father comment id
+    content: string,
+    createTime: string,
+    postId: number
+}
 
-function ArticleForm() {
-    const [formValues, setFormValues] = useState(defaultArticle);
+export {DiscussionForm}
+
+function DiscussionForm(props:any) {
+
+    let emptyPostDiscussion: postDiscussion = {
+        parentId: props.discussionID, // father comment id
+        content: "",
+        createTime: "",
+        postId: props.articleID
+    }
+    const [formValues, setFormValues] = useState(emptyPostDiscussion);
+    console.log("DiscussionForm article id", formValues.postId)
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -36,16 +49,14 @@ function ArticleForm() {
     const handleClose = () => {
         setOpen(false);
     };
-    // @ts-ignore
     const handleSubmit = () => {
-        console.log(`ArticleForm handleSubmit ${formValues.title}${formValues.content}${formValues.createTime}${formValues.user}`);
-        commPost("ArticleForm handleSubmit", config.api.articles.baseURL, formValues);
+        console.log(`DiscussionForm handleSubmit parentId:${formValues.parentId} content: ${formValues.content} createTime: ${formValues.createTime} postId: ${formValues.postId}`);
+        commPost("DiscussionForm handleSubmit", config.api.discussions.baseURL, formValues);
     }
 
 
-    // @ts-ignore
-    const handleInputChange = (e) => {
-        console.log(`articleForm handleInputChange ${e}`)
+    const handleInputChange = (e: any) => {
+        console.log(`DiscussionForm handleInputChange ${e}`)
         const {name, value} = e.target;
         let date = new Date()
         setFormValues({
@@ -57,26 +68,14 @@ function ArticleForm() {
 
     return (
         <div>
-            <Grid container textAlign="center">
-                <Button variant="outlined" onClick={handleClickOpen}>
-                    Create new post
-                </Button>
-            </Grid>
+            <IconButton onClick={handleClickOpen}>
+                <ReplySharpIcon/>
+            </IconButton>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Create new post</DialogTitle>
+                <DialogTitle>Reply to the discussion</DialogTitle>
                 <DialogContent>
                     <form onSubmit={handleSubmit}>
                         <Grid container alignItems="center" direction="column" spacing={2}>
-                            <Grid item>
-                                <TextField
-                                    id="title-input"
-                                    name="title"
-                                    label="Title"
-                                    type="text"
-                                    value={formValues.title}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
                             <Grid item>
                                 <TextField
                                     id="content-input"
@@ -103,4 +102,3 @@ function ArticleForm() {
 
 }
 
-export {ArticleForm}

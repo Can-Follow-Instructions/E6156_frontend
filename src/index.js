@@ -11,7 +11,7 @@ import {ThemeProvider} from '@mui/material/styles';
 import App from './App';
 import theme from './theme';
 import {Album} from "./Album";
-import {GetHomePost} from "./Article/getArticle";
+import {GetHomeArticle} from "./Article/getArticle";
 import {ArticleForm} from "./Article/postArticle"
 
 ReactDOM.render(
@@ -23,7 +23,7 @@ ReactDOM.render(
     // <Album />,
     <div>
         <ArticleForm/>
-        <GetHomePost/>
+        <GetHomeArticle/>
     </div>,
     document.querySelector('#root'),
 );
