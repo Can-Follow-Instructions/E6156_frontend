@@ -13,6 +13,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from '@mui/material/IconButton';
 import {DiscussionInArticleDetail} from '../Discussion/getDiscussion'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import axios from 'axios'
+import {DiscussionForm} from "../Discussion/postDiscussion";
 
 const ARTICLEURL = config.api.articles
 const MAXCONTENTLENGTH = 50
@@ -35,7 +37,7 @@ function GetHomeArticle() {
     const [showMoreDict, setShowMoreDict] = useState(empty)
 
     function getArticle() {
-        return commGet("getPost", ARTICLEURL.baseURL, {}).then(data => {
+        return commGet("getPost", ARTICLEURL.baseURL).then(data => {
             console.log(data)
             // @ts-ignore
             setPostList(data)
@@ -48,7 +50,26 @@ function GetHomeArticle() {
         setShowMoreDict(initDict)
     }
 
-    useEffect(() => {
+    // @ts-ignore
+    useEffect(async () => {
+        // const res = await axios.get("http://10.147.17.210:3000/users/1").catch(err => {
+        //     console.log(`commmonGet request  failed error:`, err.stauts)
+        // });
+        // console.log("redirect te", res.status); // 200
+        // new Promise((resolve, reject) => {
+        //     let url = "http://10.147.17.210:3000/users/1"
+        //     axios.get(url).then(res => {
+        //         console.log(`commmonGet response status ${res.status}`);
+        //         console.log(`commmonGet request successed, res:`, res.data)
+        //         resolve(res.data)
+        //     }).catch(err => {
+        //         if (err.response.status == config.api.code.unauthorized){
+        //             window.location.assign("http://t.1oop.ml:3000/google/redirect")
+        //         }
+        //         console.log(`commmonGet request failed error:`, err)
+        //         console.log(`commmonGet request failed error code:`, err.response.status)
+        //         reject(err)
+        //     })})
         getArticle().then(() => {
             resetShowMoreDict()
         })
@@ -90,8 +111,9 @@ function GetHomeArticle() {
                                     setShowMoreDict(newShowMoreDict)
                                     console.log(showMoreDict)
                                 }}>
-                                    {showMoreDict[index]? <ArrowRightIcon/>:<ArrowDropDownIcon/>}
+                                    {showMoreDict[index] ? <ArrowRightIcon/> : <ArrowDropDownIcon/>}
                                 </IconButton>
+                                <DiscussionForm articleID={item.id} discussionID={0}/>
                             </CardActions>
                             <CardContent>
                                 {showMoreDict[index] && <DiscussionInArticleDetail articleID={item.id}/>}

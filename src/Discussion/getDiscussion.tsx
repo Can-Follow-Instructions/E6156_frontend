@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import {Article} from '../Article/getArticle'
 import IconButton from "@mui/material/IconButton";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import {DiscussionForm} from "./postDiscussion";
 
 const DISCUSSIONURL = config.api.discussions
 
@@ -25,7 +26,8 @@ interface Discussion {
     replies: Discussion[]
 }
 
-export {DiscussionInArticleDetail}
+export {DiscussionInArticleDetail};
+export type { Discussion };
 
 function DiscussionInArticleDetail(props:any) {
     let empty: Discussion[] = []
@@ -57,17 +59,12 @@ function DiscussionInArticleDetail(props:any) {
                     <Typography sx={{mb: 1.5, fontSize: 12}} color="text.secondary">
                         {"posted by " + shapeTime(props.discussion.createTime)}
                     </Typography>
+                    <DiscussionForm articleID={props.articleID} discussionID={props.discussion.id}/>
                 </CardContent>
-                <CardActions>
-                    <IconButton onClick={() => {
-                    }}>
-                        <ArrowDropDownIcon></ArrowDropDownIcon>
-                    </IconButton>
-                </CardActions>
                 {props.discussion.replies.length ?
                     props.discussion.replies.map((item: Discussion, index: any) => {
                         {console.log(index, item)}
-                        return (<DiscussionLayer discussion = {item}/>)
+                        return (<DiscussionLayer discussion = {item} articleID={props.articleID}/>)
                     }) : ""}
             </Card>
         )
@@ -77,7 +74,7 @@ function DiscussionInArticleDetail(props:any) {
             {discussionList.length ?
                 discussionList.map((item: Discussion, index) => {
                     {console.log(index, item)}
-                    return (<DiscussionLayer discussion = {item}/>)
+                    return (<DiscussionLayer discussion = {item} articleID={props.articleID}/>)
                 }) : <Typography sx={{fontSize: 15}} gutterBottom>{'No comment yet...'}</Typography>}
         </Container>
     )
