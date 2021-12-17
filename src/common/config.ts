@@ -1,8 +1,9 @@
 const config = {
     api: {
-        baseURL: "http://127.0.0.1:3000",
-        AWSURL:"http://s1.1oop.ml/",
-        localURL:"http://t.1oop.ml:3000",
+        baseURL: "/api/",
+        AWSURL:"/api/",
+        // localURL:"http://t.1oop.ml:3000",
+        localURL: "/api/",
         code: {
             success    : 200,   // 200-success
             unauthorized: 401,   // 401-unauthorized
