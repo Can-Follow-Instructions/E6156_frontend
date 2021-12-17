@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {commGet, brieviateString, shapeTime} from '../common/commFunc'
 import config from '../common/config'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -13,7 +12,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from '@mui/material/IconButton';
 import {DiscussionInArticleDetail} from '../Discussion/getDiscussion'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import axios from 'axios'
+import axios, {AxiosError} from 'axios'
 import {DiscussionForm} from "../Discussion/postDiscussion";
 
 interface User {
@@ -32,3 +31,16 @@ const emptyUser: User = {
 
 export type {User}
 export {emptyUser}
+export {getUser}
+
+async function getUser(note = 'getUser') {
+    let url = "http://s1.1oop.ml/userinfo"
+    console.log(`commmonGet request ${note} address:${url}`);
+    try {
+        const resp = await axios.get(url, {withCredentials: true});
+        console.log(resp.data)
+        return resp.data;
+    } catch (err) {
+        console.log(`commmonGet request ${note} err:${err}`);
+    }
+}

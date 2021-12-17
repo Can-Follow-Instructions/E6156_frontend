@@ -1,11 +1,22 @@
 import axios, {AxiosError} from 'axios'
 import config from './config'
+import {getUser} from '../User/getUser'
 
 export {commGet, commPost, abbreviateString, shapeTime}
 
 function loginRedirect() {
-  window.location.assign(config.api.localURL + config.api.login.baseURL)
+  // window.location.assign(config.api.localURL + config.api.login.baseURL)
+  window.location.replace("http://s1.1oop.ml/google/redirect")
 }
+
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  console.log(config)
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
 
 async function commGet(note = 'get', api = '') {
   let url = config.api.localURL + api
@@ -30,6 +41,7 @@ async function commPost(note = '', api = '', data: any) {
   } catch (err) {
     console.log(`commmonGet request ${note} err:${err}`);
     if ((err as AxiosError).response?.status === 401) {
+      console.log('commPost request 401');
       loginRedirect();
     }
   }
