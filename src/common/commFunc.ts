@@ -8,7 +8,7 @@ function loginRedirect() {
 }
 
 async function commGet(note = 'get', api = '') {
-  let url = config.api.localURL + api
+  const url = config.api.localURL + api
   console.log(`commmonGet request ${note} address:${url}`);
   try {
     const resp = await axios.get(url, {withCredentials: true});
@@ -22,13 +22,13 @@ async function commGet(note = 'get', api = '') {
 }
 
 async function commPost(note = '', api = '', data: any) {
-  let url = config.api.localURL + api
-  console.log(`commPost${note}request ${note} address:${url}, data:${data}`);
+  const url = config.api.localURL + api
+  console.log(`commPost request ${note} address:${url}, data:${data}`);
   try {
     const resp = await axios.post(url, data, {withCredentials: true});
     return resp.data;
   } catch (err) {
-    console.log(`commmonGet request ${note} err:${err}`);
+    console.log(`commPost request ${note} err:${err}`);
     if ((err as AxiosError).response?.status === 401) {
       loginRedirect();
     }

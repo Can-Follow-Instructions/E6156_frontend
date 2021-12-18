@@ -27,9 +27,12 @@ function ArticleForm() {
         setOpen(false);
     };
     // @ts-ignore
-    const handleSubmit = () => {
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
         console.log(`ArticleForm handleSubmit ${formValues.title}${formValues.content}${formValues.createTime}${formValues.user}`);
-        commPost("ArticleForm handleSubmit", config.api.articles.baseURL, formValues);
+        await commPost("ArticleForm handleSubmit", config.api.articles.baseURL, formValues);
+        await new Promise(r => setTimeout(r, 2000));
+        window.location.reload();
     }
 
 

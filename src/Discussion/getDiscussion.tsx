@@ -26,15 +26,15 @@ export function DiscussionInArticleDetail(props: any) {
   let empty: Discussion[] = []
   const [discussionList, setDiscussionList] = useState(empty)
 
-  const getDiscussionByArticleID = async () => {
-    const data = await commGet("getDiscussionByPostID", DISCUSSIONURL.getByArticlesURL + '/' + String(props.articleID))
-    console.log(data)
-    setDiscussionList(data)
-  }
-
   useEffect(() => {
+    const getDiscussionByArticleID = async () => {
+      const data = await commGet("getDiscussionByPostID", DISCUSSIONURL.getByArticlesURL + '/' + String(props.articleID))
+      console.log(data)
+      setDiscussionList(data)
+    }
+
     getDiscussionByArticleID()
-  }, []);
+  }, [props]);
 
   function DiscussionLayer(props: any) {
     console.log(` test test ${props.discussion.title}`)

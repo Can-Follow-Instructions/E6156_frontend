@@ -25,7 +25,6 @@ export function DiscussionForm(props: any) {
     postId: props.articleID
   }
   const [formValues, setFormValues] = useState(emptyPostDiscussion);
-  console.log("DiscussionForm article id", formValues.postId)
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,10 +33,13 @@ export function DiscussionForm(props: any) {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleSubmit = () => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     console.log(`DiscussionForm handleSubmit parentId:${formValues.parentId} content: ${formValues.content} createTime: ${formValues.createTime} postId: ${formValues.postId}`);
     const date = new Date();
-    commPost("DiscussionForm handleSubmit", config.api.discussions.baseURL, {...formValues, createTime: date.toLocaleString()});
+    await commPost("DiscussionForm handleSubmit", config.api.discussions.baseURL, {...formValues, createTime: date.toLocaleString()});
+    await new Promise(r => setTimeout(r, 2000));
+    window.location.reload();
   }
 
 

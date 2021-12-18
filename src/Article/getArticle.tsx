@@ -25,37 +25,29 @@ interface Article {
 }
 
 function GetHomeArticle() {
-  let page = 1
-  let size = 100
   let emptyArticleList: Article[] = []
   const [postList, setPostList] = useState(emptyArticleList)
   let empty: boolean[] = []
   const [showMoreDict, setShowMoreDict] = useState(empty)
 
 
-
-  const resetShowMoreDict = () => {
-    const l = postList.length
-    const initDict = Array(l).fill(false);
-    setShowMoreDict(initDict)
-  }
-
   // @ts-ignore
   useEffect(() => {
     const getArticle = async () => {
       const data = await commGet("getPost", ARTICLEURL.baseURL);
       setPostList(data);
-      resetShowMoreDict()
+      const initDict = Array(data.length).fill(false);
+      setShowMoreDict(initDict)
     };
     getArticle();
-  }, [page, size]);
+  }, []);
 
   return (
     <Container sx={{py: 8}} maxWidth="md">
       {postList ?
         postList.map((item: Article, index) => {
           return (
-            <Card sx={{minWidth: 275, m: 2}}>
+            <Card sx={{minWidth: 275, m: 2}} key={index}>
               <CardContent>
                 <Typography sx={{fontSize: 30}} gutterBottom>
                   {item.title}
